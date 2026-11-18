@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Pranaya ♥ Shiva</title>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://identitytoolkit.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Pranaya">
+    <meta name="theme-color" content="#3B1027">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap">
+    <style>
+        :root {
+            --bg1: #3B1027;
+            --bg2: #2A0A1C;
+            --card: #4A1530;
+            --el: #571A38;
+            --ac: #D9AE83;
+            --ac2: #F1B5C7;
+            --tx: #FFF7F5;
+            --tx2: #D8BFC4;
+            --bd: rgba(232, 210, 187, .22);
+            --bd2: rgba(232, 210, 187, .12);
+            --ser: "Playfair Display", Georgia, serif;
+            color-scheme: dark
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        :root {
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font: 500 14px/1.5 Manrope, Inter, system-ui, sans-serif;
+            color: var(--tx);
+            background: var(--bg1);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased
+        }
+
+        #bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(70% 45% at 15% 0%, rgba(217, 174, 131, .16), transparent 70%), radial-gradient(60% 40% at 100% 100%, rgba(141, 41, 76, .18), transparent 70%), linear-gradient(180deg, var(--bg1), var(--bg2));
+            animation: glow 24s ease-in-out infinite alternate
+        }
+
+        @keyframes glow {
+            to {
+                background-position: 30px 20px;
+                filter: hue-rotate(-8deg)
+            }
+        }
+
+        #app {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            max-width: 760px;
+            margin: auto
+        }
+
+        h1,
+        h2,
+        .ser {
+            font: 500 28px/1.15 var(--ser);
+            letter-spacing: .2px
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px 8px
+        }
+
+        header h2 {
+            flex: 1;
+            text-align: center;
+            font-size: 22px
+        }
+
+        main {
+            flex: 1;
+            overflow: auto;
+            padding: 6px 18px 18px;
+            animation: in .35s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        @keyframes in {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+        }
+
+        button {
+            font: inherit;
+            color: inherit;
+            cursor: pointer
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--ac);
+            outline-offset: 2px
+        }
+
+        .i {
+            display: block;
+            flex: none
+        }
+
+        .ib {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            border: 1px solid var(--bd2);
+            background: rgba(58, 20, 41, .7);
+            display: grid;
+            place-items: center;
+            color: var(--ac2);
+            flex: none;
+            padding: 0;
+            overflow: hidden;
+            transition: .2s
+        }
+
+        .ib:hover {
+            border-color: var(--bd);
+            background: var(--el)
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ac)
+        }
+
+        .sub {
+            color: var(--tx2);
+            font-size: 13px
+        }
+
+        small,
+        .mute {
+            color: var(--tx2);
+            font-size: 12px
+        }
+
+        .greet {
+            padding: 10px 2px 18px
+        }
+
+        .greet h1 {
+            font-size: 38px;
+            margin: 4px 0
+        }
+
+        .ico {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            color: var(--ac2);
+            background: rgba(217, 174, 131, .12);
+            border: 1px solid var(--bd2);
+            flex: none
+        }
+
+        .ico.s {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px
+        }
+
+        .card,
+        .bd,
+        .nx,
+        .fc,
+        .rw {
+            background: linear-gradient(160deg, rgba(80, 24, 47, .55), rgba(58, 20, 41, .85));
+            border: 1px solid var(--bd2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px)
+        }
+
+        .card {
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .bd {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border-color: var(--bd);
+            background: linear-gradient(135deg, rgba(217, 174, 131, .2), rgba(58, 20, 41, .92) 62%);
+            box-shadow: 0 0 28px rgba(217, 174, 131, .1), inset 0 1px 0 rgba(255, 255, 255, .08)
+        }
+
+        .bd h2 {
+            font-size: 22px;
+            margin: 2px 0
+        }
+
+        .cnt {
+            text-align: center;
+            padding-left: 14px;
+            border-left: 1px solid var(--bd2)
+        }
+
+        .cnt b {
+            display: block;
+            font: 500 46px/1 var(--ser);
+            color: var(--ac2)
+        }
+
+        .cnt span {
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--tx2)
+        }
+
+        .cnt .t {
+            font-size: 22px
+        }
+
+        .nx {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            margin-bottom: 18px
+        }
+
+        .nx b {
+            display: block;
+            font-weight: 600
+        }
+
+        .g {
+            flex: 1;
+            min-width: 0
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sec {
+            font: 600 11px Manrope;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--tx2);
+            margin: 6px 2px 10px
+        }
+
+        .fgrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px
+        }
+
+        .fc,
+        .rw {
+            color: var(--tx);
+            text-align: left;
+            transition: transform .25s, border-color .25s, box-shadow .25s
+        }
+
+        .fc {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 128px
+        }
+
+        .fc b {
+            font: 600 16px var(--ser);
+            margin-top: 6px
+        }
+
+        .fc small {
+            margin-top: auto
+        }
+
+        .rw {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            width: 100%;
+            margin-bottom: 10px
+        }
+
+        .rw b {
+            display: block;
+            font-weight: 600
+        }
+
+        @media(hover:hover) {
+
+            .fc:hover,
+            .rw:hover {
+                transform: translateY(-3px);
+                border-color: var(--bd);
+                box-shadow: 0 14px 30px rgba(0, 0, 0, .3), 0 0 18px rgba(217, 174, 131, .1)
+            }
+        }
+
+        nav {
+            display: flex;
+            gap: 2px;
+            margin: 0 auto 10px;
+            width: calc(100% - 28px);
+            max-width: 440px;
+            padding: 5px;
+            border-radius: 999px;
+            background: rgba(38, 13, 27, .78);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--bd2);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .4)
+        }
+
+        nav button {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            background: none;
+            border: 0;
+            border-radius: 999px;
+            padding: 7px 0 6px;
+            font: 600 10px Manrope;
+            letter-spacing: .03em;
+            color: var(--tx2);
+            transition: background .25s, color .25s
+        }
+
+        nav button.on {
+            background: rgba(217, 174, 131, .18);
+            color: var(--ac2)
+        }
+
+        nav button.on .i {
+            transform: translateY(-1px)
+        }
+
+        nav .i {
+            transition: transform .25s
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 14px;
+            padding: 13px 20px;
+            font-weight: 700;
+            color: #3B1027;
+            background: linear-gradient(135deg, #F1B5C7, #D9AE83);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: filter .2s, transform .2s
+        }
+
+        .btn:hover {
+            filter: brightness(1.06)
+        }
+
+        .btn.w {
+            width: 100%;
+            margin-bottom: 12px
+        }
+
+        .gh {
+            border: 1px solid var(--bd);
+            background: rgba(58, 20, 41, .6);
+            color: var(--tx);
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: .2s
+        }
+
+        .gh:hover {
+            background: var(--el)
+        }
+
+        .gh.w {
+            width: 100%;
+            margin-bottom: 12px
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            font: inherit;
+            color: var(--tx);
+            background: rgba(38, 13, 27, .7);
+            border: 1px solid var(--bd2);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 10px
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #A88A93
+        }
+
+        textarea {
+            resize: none
+        }
+
+        label.l {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tx2);
+            margin: 0 0 5px 2px
+        }
+
+        input[type=date],
+        input[type=time] {
+            color-scheme: dark
+        }
+
+        .em {
+            text-align: center;
+            padding: 30px 10px;
+            color: var(--tx2)
+        }
+
+        .msgs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .mr {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            align-self: flex-start;
+            max-width: 92%
+        }
+
+        .mr.me {
+            align-self: flex-end;
+            flex-direction: row-reverse
+        }
+
+        .m {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px 18px 18px 6px;
+            background: var(--card);
+            border: 1px solid var(--bd2);
+            overflow-wrap: anywhere
+        }
+
+        .m.me {
+            background: var(--el);
+            border-color: var(--bd);
+            border-radius: 18px 18px 6px 18px
+        }
+
+        .m small {
+            display: block;
+            text-align: right;
+            font-size: 10px;
+            margin-top: 2px
+        }
+
+        .bot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: var(--ac2);
+            background: rgba(217, 174, 131, .16);
+            border: 1px solid var(--bd);
+            flex: none
+        }
+
+        .cal {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center
+        }
+
+        .cal b {
+            font-size: 11px;
+            color: var(--tx2);
+            font-weight: 600
+        }
+
+        .cal button {
+            border: 0;
+            background: none;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            position: relative;
+            font-weight: 500;
+            transition: background .2s
+        }
+
+        .cal button:hover {
+            background: var(--el)
+        }
+
+        .cal .t {
+            background: var(--ac);
+            color: #3B1027;
+            font-weight: 700
+        }
+
+        .cal .d:after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            margin-left: -2px;
+            border-radius: 50%;
+            background: var(--ac2)
+        }
+
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 6px
+        }
+
+        .ph {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--bd);
+            cursor: pointer
+        }
+
+        .ph div {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform .4s
+        }
+
+        .ph:hover div {
+            transform: scale(1.04)
+        }
+
+        .note {
+            background: linear-gradient(160deg, var(--el), var(--card));
+            border: 1px solid var(--bd);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 12px;
+            font: italic 500 17px/1.6 var(--ser);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere
+        }
+
+        .note small {
+            font: 600 11px Manrope;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--ac)
+        }
+
+        .bar {
+            height: 6px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, .1);
+            overflow: hidden;
+            margin-top: 12px
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--ac), var(--ac2));
+            transition: width .5s
+        }
+
+        .sw {
+            width: 44px;
+            height: 26px;
+            border-radius: 99px;
+            border: 1px solid var(--bd);
+            background: var(--card);
+            position: relative;
+            flex: none;
+            transition: .25s
+        }
+
+        .sw:after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--tx2);
+            transition: .25s
+        }
+
+        .sw.on {
+            background: var(--ac)
+        }
+
+        .sw.on:after {
+            left: 21px;
+            background: #3B1027
+        }
+
+        .chk {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: 1.5px solid var(--ac);
+            background: none;
+            color: #3B1027;
+            flex: none;
+            display: grid;
+            place-items: center
+        }
+
+        .chk.on {
+            background: var(--ac)
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 2px 0 6px 38px
+        }
+
+        .chip {
+            border: 1px solid var(--bd);
+            background: rgba(58, 20, 41, .6);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: .2s
+        }
+
+        .chip:hover {
+            background: var(--el)
+        }
+
+        .chip.on {
+            background: var(--ac);
+            color: #3B1027;
+            border-color: var(--ac)
+        }
+
+        .ai .m {
+            background: linear-gradient(135deg, rgba(217, 174, 131, .16), var(--card))
+        }
+
+        .msgs>.btn,
+        .msgs>input,
+        .msgs>.row {
+            margin-left: 38px;
+            width: calc(100% - 38px)
+        }
+
+        .msgs>.btn {
+            width: auto;
+            align-self: flex-start
+        }
+
+        .avs {
+            display: inline-block;
+            font-style: normal;
+            border-radius: 50%;
+            overflow: hidden;
+            flex: none;
+            box-shadow: 0 0 0 1.5px var(--bd)
+        }
+
+        .avs svg {
+            display: block
+        }
+
+        #login {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            overflow: auto;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: radial-gradient(70% 45% at 50% 0%, rgba(217, 174, 131, .22), transparent 70%), linear-gradient(180deg, var(--bg1), var(--bg2))
+        }
+
+        #login .box {
+            width: 100%;
+            max-width: 380px;
+            text-align: center
+        }
+
+        .av {
+            display: inline-block;
+            margin-bottom: -44px;
+            position: relative;
+            z-index: 1
+        }
+
+        .lc {
+            background: linear-gradient(160deg, rgba(80, 24, 47, .7), rgba(58, 20, 41, .92));
+            border: 1px solid var(--bd);
+            border-radius: 26px;
+            padding: 60px 24px 24px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 40px rgba(217, 174, 131, .08)
+        }
+
+        .lc h1 {
+            font-size: 30px
+        }
+
+        .who {
+            display: flex;
+            gap: 4px;
+            margin: 18px 0 14px;
+            padding: 4px;
+            border-radius: 14px;
+            background: rgba(38, 13, 27, .7);
+            border: 1px solid var(--bd2)
+        }
+
+        .who button {
+            flex: 1;
+            border: 0;
+            background: none;
+            border-radius: 10px;
+            padding: 9px;
+            font-weight: 600;
+            color: var(--tx2);
+            transition: .2s
+        }
+
+        .who .on {
+            background: var(--el);
+            color: var(--tx)
+        }
+
+        .lc a {
+            color: var(--ac2);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px
+        }
+
+        @media(min-width:700px) {
+            main {
+                padding: 10px 28px 24px
+            }
+
+            .greet h1 {
+                font-size: 44px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+        }
+
+        nav {
+            border: 1px solid rgba(217, 174, 131, .5);
+            background: rgba(38, 13, 27, .78)
+        }
+
+        nav button.on {
+            box-shadow: inset 0 -2px 0 var(--ac)
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #E75D88, #C62855);
+            color: #FFF7F5;
+            border: 1px solid rgba(217, 174, 131, .5)
+        }
+
+        .bd {
+            border-color: rgba(217, 174, 131, .35)
+        }
+
+        :root {
+            --hr: #E75D88
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2px 0 14px
+        }
+
+        .hero svg.cp {
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 14px 26px rgba(198, 40, 85, .4))
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center
+        }
+
+        .hero h1 .i {
+            color: var(--hr);
+            animation: bt 1.6s ease-in-out infinite
+        }
+
+        @keyframes bt {
+            50% {
+                transform: scale(1.25)
+            }
+        }
+
+        #fh {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        #fh i {
+            position: absolute;
+            bottom: -30px;
+            color: var(--hr);
+            opacity: 0;
+            animation: fl linear infinite
+        }
+
+        @keyframes fl {
+            15% {
+                opacity: .45
+            }
+
+            to {
+                transform: translateY(-110vh) rotate(25deg);
+                opacity: 0
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            #fh {
+                display: none
+            }
+
+            .hero h1 .i {
+                animation: none
+            }
+        }
+
+        .hand {
+            font: 600 22px Caveat, cursive
+        }
+
+        .env {
+            background: linear-gradient(160deg, #F9DCE6, #F5B7CA);
+            color: #3B1027;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .3)
+        }
+
+        .env small {
+            color: #7a3350
+        }
+
+        .ef {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            padding: 16px
+        }
+
+        .seal {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex: none;
+            background: radial-gradient(circle at 35% 30%, #E75D88, #C62855 60%, #8D1236);
+            color: #FFEAF0;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .35)
+        }
+
+        .paper {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 18px;
+            white-space: pre-wrap;
+            background: #FFF7F4 repeating-linear-gradient(transparent 0 27px, rgba(198, 40, 85, .14) 27px 28px);
+            font: 500 20px/28px Caveat, cursive;
+            transition: max-height .6s ease, padding .4s
+        }
+
+        .env.open .paper {
+            max-height: 1200px;
+            padding: 14px 18px 18px
+        }
+
+        .ph {
+            position: relative;
+            background: #FFFDFD !important;
+            padding: 8px 8px 28px !important;
+            border-radius: 4px !important;
+            transform: rotate(-2deg);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, .35);
+            transition: transform .3s
+        }
+
+        .ph:nth-child(even) {
+            transform: rotate(2.2deg)
+        }
+
+        .ph:hover {
+            transform: rotate(0) scale(1.03)
+        }
+
+        .ph>div {
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            border-radius: 2px
+        }
+
+        .ph:after,
+        .cal .d:after {
+            content: "";
+            background: var(--hr);
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z'/%3E%3C/svg%3E") center/contain no-repeat
+        }
+
+        .ph:after {
+            position: absolute;
+            right: 10px;
+            bottom: 6px;
+            width: 16px;
+            height: 16px
+        }
+
+        .cal .d:after {
+            width: 10px !important;
+            height: 10px !important;
+            margin-left: -5px !important;
+            border-radius: 0 !important;
+            bottom: 2px !important
+        }
+
+        .m.me {
+            background: linear-gradient(135deg, #C62855, #8D1F45) !important;
+            color: #FFF7F4
+        }
+
+        .cal .t {
+            background: var(--hr) !important;
+            color: #fff !important
+        }
+
+        .em {
+            display: grid;
+            justify-items: center;
+            gap: 6px;
+            text-align: center
+        }
+
+        #fh {
+            z-index: 3
+        }
+
+        #fh i {
+            font-style: normal;
+            bottom: -40px;
+            line-height: 1
+        }
+
+        #fh b {
+            display: block;
+            font-weight: 400;
+            animation: sw 3s ease-in-out infinite alternate
+        }
+
+        @keyframes fl {
+            12% {
+                opacity: .55
+            }
+
+            85% {
+                opacity: .45
+            }
+
+            to {
+                transform: translateY(-115vh);
+                opacity: 0
+            }
+        }
+
+        @keyframes sw {
+            from {
+                transform: translateX(-16px) rotate(-14deg)
+            }
+
+            to {
+                transform: translateX(16px) rotate(14deg)
+            }
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            top: calc(env(safe-area-inset-top, 0px) + 14px);
+            transform: translateX(-50%);
+            z-index: 50;
+            max-width: 90%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            background: #571A38;
+            border: 1px solid var(--ac);
+            color: #FFF7F5;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .45)
+        }
+
+        .wl {
+            font-size: 30px;
+            color: var(--ac2);
+            margin: 2px 0 6px
+        }
+
+        .hero h1 {
+            font-size: 24px !important
+        }
+
+        .mi {
+            max-width: 230px;
+            max-height: 280px;
+            border-radius: 12px;
+            display: block;
+            margin-bottom: 4px;
+            cursor: zoom-in
+        }
+
+        .m audio {
+            width: 230px;
+            max-width: 100%;
+            height: 38px
+        }
+
+        .gone {
+            opacity: .6;
+            font-style: italic
+        }
+
+        .ca {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+            justify-content: flex-end
+        }
+
+        .rd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #E75D88;
+            animation: bt 1s infinite
+        }
+
+        #cr,
+        #rc {
+            align-items: center;
+            gap: 8px
+        }
+
+        .cmp {
+            position: sticky;
+            bottom: 0;
+            padding-top: 10px;
+            background: linear-gradient(transparent, var(--bg1) 30%)
+        }
+
+        .cmp .ib {
+            width: 38px;
+            height: 38px;
+            cursor: pointer
+        }
+
+        .calm #fh {
+            display: none
+        }
+
+        .calm .hero h1 .i,
+        .calm .rd {
+            animation: none
+        }
+
+        .calm #bg {
+            animation: none
+        }
+
+        body {
+            transition: background-color .6s, color .6s
+        }
+
+        .card,
+        .bd,
+        .nx,
+        .fc,
+        .rw,
+        nav {
+            transition: background .5s, box-shadow .5s, border-color .5s
+        }
+
+        #bg:before,
+        #bg:after {
+            content: "";
+            position: absolute;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .38;
+            animation: dr 18s ease-in-out infinite alternate
+        }
+
+        #bg:before {
+            left: -25vmax;
+            top: -25vmax;
+            background: #C62855
+        }
+
+        #bg:after {
+            right: -25vmax;
+            bottom: -25vmax;
+            background: #D9AE83;
+            animation-delay: -9s;
+            opacity: .22
+        }
+
+        @keyframes dr {
+            to {
+                transform: translate(12vmax, 8vmax) scale(1.15)
+            }
+        }
+
+        body:not(.calm) .card,
+        body:not(.calm) .bd,
+        body:not(.calm) .nx,
+        body:not(.calm) .fc,
+        body:not(.calm) .rw {
+            box-shadow: 0 0 0 1px rgba(217, 174, 131, .1), 0 12px 38px rgba(198, 40, 85, .16)
+        }
+
+        body:not(.calm) nav {
+            box-shadow: 0 0 34px rgba(231, 93, 136, .28), 0 12px 32px rgba(0, 0, 0, .4)
+        }
+
+        body:not(.calm) .bd {
+            position: relative;
+            overflow: hidden
+        }
+
+        body:not(.calm) .bd:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 234, 240, .14), transparent);
+            animation: shm 6s ease-in-out infinite
+        }
+
+        @keyframes shm {
+
+            60%,
+            100% {
+                left: 130%
+            }
+        }
+
+        .hero {
+            position: relative
+        }
+
+        body:not(.calm) .hero:before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 300px;
+            height: 300px;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(231, 93, 136, .38), transparent 65%);
+            animation: pu 4s ease-in-out infinite;
+            z-index: -1
+        }
+
+        @keyframes pu {
+            50% {
+                opacity: .5;
+                transform: translateX(-50%) scale(1.12)
+            }
+        }
+
+        .calm {
+            --bg1: #FFF7F4;
+            --bg2: #F9DCE6;
+            --card: #FFFDFD;
+            --el: #FFEAF0;
+            --ac: #B8794F;
+            --ac2: #8D294C;
+            --tx: #3B1027;
+            --tx2: #7A4A5E;
+            --bd: rgba(141, 41, 76, .3);
+            --bd2: rgba(141, 41, 76, .14);
+            color-scheme: light
+        }
+
+        .calm #bg,
+        .calm #login {
+            background: linear-gradient(180deg, #FFF7F4, #F9DCE6)
+        }
+
+        .calm #bg:before,
+        .calm #bg:after {
+            display: none
+        }
+
+        .calm .card,
+        .calm .bd,
+        .calm .nx,
+        .calm .fc,
+        .calm .rw {
+            background: #FFFDFD;
+            backdrop-filter: none;
+            box-shadow: 0 6px 20px rgba(141, 41, 76, .09)
+        }
+
+        .calm .ib,
+        .calm .gh,
+        .calm .chip,
+        .calm input,
+        .calm textarea {
+            background: #FFFDFD;
+            color: var(--tx)
+        }
+
+        .calm .ico {
+            background: #FFEAF0;
+            color: #C62855
+        }
+
+        .calm nav {
+            background: rgba(255, 253, 253, .92);
+            border-color: rgba(217, 174, 131, .7);
+            box-shadow: 0 8px 24px rgba(141, 41, 76, .16)
+        }
+
+        .calm nav button.on {
+            background: #FFEAF0;
+            color: #C62855
+        }
+
+        .calm .m {
+            background: #FFFDFD
+        }
+
+        .calm .wl {
+            color: #8D294C
+        }
+
+        .calm .toast,
+        .calm .sh {
+            background: #FFFDFD;
+            color: #3B1027
+        }
+
+        .calm .hero svg.cp {
+            filter: drop-shadow(0 10px 16px rgba(141, 41, 76, .22))
+        }
+
+        .calm .cmp {
+            background: linear-gradient(transparent, #FFF7F4 30%)
+        }
+
+        .sheet {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            background: rgba(20, 5, 12, .6);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center
+        }
+
+        .sh {
+            width: 100%;
+            max-width: 760px;
+            padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+            border-radius: 24px 24px 0 0;
+            background: #3A1429;
+            border: 1px solid var(--bd2);
+            animation: in .3s
+        }
+
+        .sheet .rw {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            width: 100%;
+            color: inherit;
+            text-decoration: none;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg"></div>
+    <div id="app"></div>
+    <div id="login">
+        <div class="box">
+            <div class="av" id="av"></div>
+            <div class="lc">
+                <h1>Welcome back</h1>
+                <p class="sub" style="margin-top:4px">Sign in to your private space</p>
+                <div class="who" role="group" aria-label="Who are you?"><button id="wp" class="on"
+                        onclick="pick('Pranaya')">Pranaya</button><button id="ws" onclick="pick('Shiva')">Shiva</button>
+                </div>
+                <input id="e" type="text" name="username" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;width:1px;height:1px;border:0;padding:0;margin:0;pointer-events:none">
+                <div style="position:relative"><input id="p" type="password" placeholder="Password" name="password" autocomplete="current-password" style="padding-right:48px"
+                    onkeydown="if(event.key=='Enter'){event.preventDefault();login()}"><button type="button" id="pe" onclick="pwShow()" aria-label="Show password" aria-pressed="false" style="position:absolute;right:6px;top:4px;width:38px;height:38px;display:grid;place-items:center;background:none;border:0;color:var(--tx2);cursor:pointer"></button></div>
+                <p id="em" role="alert" style="color:#f0a3b8;font-size:12px;min-height:18px"></p>
+                <button class="btn" id="lb" style="width:100%" onclick="login()">Sign in</button>
+                <p style="margin-top:14px;font-size:12px"><a onclick="reset()">Forgot password?</a></p>
+                <p class="mute" style="margin-top:16px;display:flex;gap:6px;justify-content:center;align-items:center"
+                    id="lk"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const $ = s => document.querySelector(s);
+        const IC = { 'house': '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>', 'message-circle': '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>', 'calendar-days': '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/>', 'heart': '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>', 'ellipsis': '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>', 'cake': '<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/>', 'mail': '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>', 'images': '<path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/>', 'book-open': '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>', 'target': '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>', 'clock': '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>', 'map-pin': '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>', 'sliders': '<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>', 'log-out': '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>', 'chevron-left': '<path d="m15 18-6-6 6-6"/>', 'chevron-right': '<path d="m9 18 6-6-6-6"/>', 'send': '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>', 'plus': '<path d="M5 12h14"/><path d="M12 5v14"/>', 'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>', 'check': '<path d="M20 6 9 17l-5-5"/>', 'sparkles': '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>', 'camera': '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>', 'lock': '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>', 'pencil': '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>', 'film': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/>', 'utensils': '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>', 'coffee': '<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>', 'tree': '<path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z"/><path d="M12 22v-3"/>', 'landmark': '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>', 'bag': '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>', 'car': '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>', 'ext': '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>', 'user': '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' };
+        const ic = (n, s = 20) => `<svg class="i" viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+        const EMAILS = { Pranaya: 'pranaya.samala15@gmail.com', Shiva: 'spranaya04@gmail.com' }, B = { Shiva: [1997, 3, 3], Pranaya: [1999, 3, 15] };
+        function av(n, z) { const g = n == 'Pranaya', h = g ? '#6b4a63' : '#3a2a45'; return `<em class="avs" style="width:${z}px;height:${z}px"><svg viewBox="0 0 100 100" width="${z}" height="${z}" role="img" aria-label="${n}"><rect width="100" height="100" fill="#571A38"/>${g ? `<g fill="${h}"><circle cx="50" cy="13" r="11"/><path d="M26 52Q22 18 50 18Q78 18 74 52L74 82L64 80L62 52L38 52L36 80L26 82Z"/></g>` : `<g fill="${h}"><circle cx="32" cy="32" r="10"/><circle cx="44" cy="24" r="11"/><circle cx="58" cy="24" r="11"/><circle cx="69" cy="32" r="10"/><circle cx="28" cy="46" r="7"/><circle cx="72" cy="46" r="7"/></g>`}<path d="M8 100Q12 72 50 70Q88 72 92 100Z" fill="${g ? '#D9AE83' : '#C66A89'}"/><rect x="43" y="60" width="14" height="14" rx="4" fill="#d9a98a"/><ellipse cx="50" cy="46" rx="21" ry="23" fill="#e8bd9d"/><path d="M29 42Q32 22 50 24Q68 22 71 42Q62 32 50 34Q38 32 29 42Z" fill="${h}"/><g fill="#2b1a24"><circle cx="41" cy="49" r="3"/><circle cx="59" cy="49" r="3"/></g><g fill="#c98aa0" opacity=".35"><circle cx="35" cy="56" r="4"/><circle cx="65" cy="56" r="4"/></g><path d="M44 58Q50 63 56 58" stroke="#8a4a55" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></em>` }
+        /* ===== FIREBASE: paste your web-app config (Project settings > Your apps). Empty apiKey = offline mode. ===== */
+        const FB = { apiKey: 'AIzaSyAp9HNLQBU39pUbs3BbWQOUSjMWqW5CaPw', authDomain: 'akkabava.firebaseapp.com', projectId: 'akkabava', appId: '1:223104607512:web:9624e997c9dfde735fea6d', messagingSenderId: '223104607512' };
+        const VAPID = 'BMUSTga7qnxt3PPWIvMZgt3EQVUKx2NNyLPQOQaOJ56QYPcntyNxH1qVa3HD4fAvEPnlTkIE_4WPBpHnq8KpIxE'; /* Firebase console > Project settings > Cloud Messaging > Web Push certificates > Generate key pair */
+        const ld = () => { try { return JSON.parse(localStorage.getItem('ps2') || '{}') } catch (e) { return {} } };
+        const S = Object.assign({ user: null, uid: null, chat: [], letters: [], drafts: [], photos: [], events: [], outs: [], notes: [], goals: [], loc: {}, set: { anim: 1 } }, ld());
+        const LOCAL = ['user', 'uid', 'photos', 'drafts', 'set'];
+        let V = 'home', H = [], cm = new Date(), me = 'Pranaya', F = '', W = -1, fa = null, fs = null, sid = '', u1 = null, u2 = null, LB = 0;
+        const save = () => { try { localStorage.setItem('ps2', JSON.stringify(S)) } catch (e) { } if (fs && S.uid) { const c = {}; for (const k in S) if (!LOCAL.includes(k)) c[k] = S[k]; fs.setDoc(fs.doc(fs.db, 'couple', 'main'), { s: c }).catch(() => { }) } };
+        const them = () => S.user == 'Pranaya' ? 'Shiva' : 'Pranaya';
+        const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const iso = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const today = () => { const t = new Date(); return iso(t.getFullYear(), t.getMonth(), t.getDate()) };
+        const fmt = d => { if (!d) return 'No date'; const [y, m, x] = d.split('-'); return new Date(+y, m - 1, +x).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) };
+        const emp = t => `<div class="em">${couple("sit", 150)}<p class="sub">${t}</p></div>`;
+        function dl(n) { const [y, m, d] = B[n], t = new Date(), z = new Date(t.getFullYear(), t.getMonth(), t.getDate()); let b = new Date(z.getFullYear(), m, d); if (b < z) b = new Date(z.getFullYear() + 1, m, d); return { days: Math.round((b - z) / 864e5), age: b.getFullYear() - y } }
+        function bev(y) { return Object.keys(B).map(n => ({ d: iso(y, B[n][1], B[n][2]), t: n + '’s Birthday', b: n })) }
+        function upcoming() { const y = new Date().getFullYear(), t = today(); return [...S.events.map((e, i) => ({ ...e, i })), ...bev(y), ...bev(y + 1), ...S.outs.filter(o => o.d).map(o => ({ d: o.d, t: o.t + (o.h ? ' · ' + o.h : '') }))].filter(e => e.d >= t).sort((a, b) => a.d > b.d ? 1 : -1) }
+        function nav(v) { H.push(V); V = v; go() } function tab(v) { H = []; V = v; go() } function back() { V = H.pop() || 'home'; go() }
+        function pick(n) { me = n; $('#wp').classList.toggle('on', n == 'Pranaya'); $('#ws').classList.toggle('on', n == 'Shiva'); $('#av').innerHTML = av(n, 88); $('#e').value = EMAILS[n]; $('#p').value = ''; msg('') }
+        const msg = t => $('#em').textContent = t;
+        let _fbp = null;
+        function fbInit() { if (!FB.apiKey) return Promise.resolve(false); if (!_fbp) _fbp = (async () => { const b = 'https://www.gstatic.com/firebasejs/10.12.2/'; const [A, Au, Fi] = await Promise.all([import(b + 'firebase-app.js'), import(b + 'firebase-auth.js'), import(b + 'firebase-firestore.js')]); const app = A.initializeApp(FB); fa = { ...Au, auth: Au.getAuth(app) }; fs = { ...Fi, db: Fi.getFirestore(app) }; return true })().catch(e => { _fbp = null; throw e }); return _fbp }
+        async function claim() { sid = Math.random().toString(36).slice(2); localStorage.setItem('ps_sid_' + S.uid, sid); await fs.setDoc(fs.doc(fs.db, 'sessions', S.uid), { sid, t: Date.now(), dev: (navigator.userAgent || '').slice(0, 120) }) }
+        function watch() { u1 = fs.onSnapshot(fs.doc(fs.db, 'sessions', S.uid), d => { if (d.exists() && d.data().sid !== sid) logout('You were signed out because this account logged in on another device.') }) }
+        async function sync() { const r = fs.doc(fs.db, 'couple', 'main'), s = await fs.getDoc(r); if (s.exists()) { Object.assign(S, s.data().s); try { localStorage.setItem('ps2', JSON.stringify(S)) } catch (e) { } } u2 = fs.onSnapshot(r, d => { if (d.exists() && !d.metadata.hasPendingWrites) { Object.assign(S, d.data().s); V == 'chat' ? chatRefresh() : go() } }) }
+        function enter() { S.user = me; save(); $('#login').style.display = 'none'; H = []; V = 'home'; go() }
+        async function login() {
+            if (LB) return;
+            const pw = $('#p').value, btn = $('#lb'); msg('');
+            if (!pw) return msg('Enter your password');
+            const busy = on => { LB = on; if (btn) { btn.disabled = !!on; btn.textContent = on ? 'Signing in…' : 'Sign in' } };
+            busy(1);
+            if (!await fbInit().catch(() => false)) { busy(0); return msg('Cannot reach Firebase. Check your internet and try again.') }
+            let r;
+            try { r = await fa.signInWithEmailAndPassword(fa.auth, EMAILS[me], pw) }
+            catch (e) {
+                busy(0); const c = e.code || '';
+                if (c == 'auth/invalid-credential' || c == 'auth/wrong-password' || c == 'auth/user-not-found') return msg('Wrong password for ' + me + '. Tap the eye icon to check what you typed.');
+                if (c == 'auth/too-many-requests') return msg('Too many attempts. Wait a few minutes, or use Forgot password.');
+                if (c == 'auth/network-request-failed') return msg('No internet connection.');
+                return msg('Sign-in problem (' + (c || e.message) + ')');
+            }
+            try {
+                S.uid = r.user.uid; if (u1) u1(); if (u2) u2();
+                await Promise.all([claim(), sync()]);   // run in parallel instead of one after the other
+                watch();                                  // this device now owns the session; any older device is signed out
+            } catch (e) { busy(0); return msg('Signed in, but could not load your data (' + (e.code || e.message) + '). Check Firestore rules and try again.') }
+            busy(0); $('#p').value = ''; enter()
+        }
+        async function reset() { if (!await fbInit()) return msg('Password reset needs Firebase to be set up.'); try { await fa.sendPasswordResetEmail(fa.auth, EMAILS[me]); msg('Reset link sent to ' + EMAILS[me].replace(/^(.{2}).*(@.*)$/, '$1•••$2') + '. Check your inbox and spam folder.') } catch (e) { msg('Could not send reset email (' + (e.code||e.message) + ')') } }
+        function logout(m) { if (u1) u1(); if (u2) u2(); u1 = u2 = null; if (fa) fa.signOut(fa.auth).catch(() => { }); S.user = null; S.uid = null; try { localStorage.setItem('ps2', JSON.stringify(S)) } catch (e) { } $('#login').style.display = 'grid'; msg(typeof m == 'string' ? m : '') }
+        const T = { letters: 'Letters', write: 'Write a Letter', drafts: 'Drafts', photos: 'Our Photos', cal: 'Our Calendar', saved: 'Saved Outings', outings: 'Plan AI', timetable: 'Timetable', notes: 'Notes', dreams: 'Dreams & Goals', loc: 'Location', settings: 'Settings', more: 'More' };
+        const FORMS = {
+            ev: { t: 'Add to calendar', f: [['date', 'Date', 'date'], ['title', 'What’s the plan?', 'text']], ok: v => S.events.push({ d: v.date, t: v.title }), need: ['date', 'title'] },
+            out: { t: 'Add an outing', f: [['title', 'Place or plan', 'text'], ['kind', 'Type (café, movie, trip…)', 'text'], ['date', 'Date', 'date'], ['time', 'Time', 'time']], ok: v => S.outs.push({ t: v.title, k: v.kind, d: v.date, h: v.time, tt: 0 }), need: ['title'] },
+            note: { t: 'New note', f: [['title', 'Title', 'text'], ['body', 'Write here…', 'area']], ok: v => S.notes.push({ t: v.title, b: v.body, by: S.user }), need: ['title'] },
+            goal: { t: 'New dream or goal', f: [['title', 'Our dream…', 'text']], ok: v => S.goals.push({ t: v.title, d: 0 }), need: ['title'] }
+        };
+        function go() {
+            const main = ['home', 'cal', 'chat', 'outings', 'more'], ph = `<span class="ib" style="visibility:hidden"></span>`,
+                hd = V == 'home' ? `<header><button class="ib" onclick="nav('settings')" aria-label="Settings">${av(S.user, 38)}</button><h2 class="ser"></h2><button class="ib" onclick="logout()" aria-label="Log out">${ic('log-out', 18)}</button></header>` : V == 'chat' ? `<header><button class="ib" onclick="back()" aria-label="Back">${ic('chevron-left')}</button><h2 class="ser" style="display:flex;align-items:center;justify-content:center;gap:10px">${av(them(), 32)} ${them()}</h2>${ph}</header>` : `<header>${V == 'more' ? ph : `<button class="ib" onclick="back()" aria-label="Back">${ic('chevron-left')}</button>`}<h2 class="ser">${V == 'add' ? FORMS[F].t : T[V]}</h2>${ph}</header>`;
+            $('#app').innerHTML = hd + `<main id="mn">${R[V]()}</main><nav aria-label="Main">${[['home', 'house', 'Home'], ['chat', 'message-circle', 'Chat'], ['cal', 'calendar-days', 'Calendar'], ['outings', 'heart', 'Outings'], ['more', 'ellipsis', 'More']].map(([k, i, l]) => `<button class="${V == k || (k == 'more' && !main.includes(V)) ? 'on' : ''}" onclick="tab('${k}')" ${V == k ? 'aria-current="page"' : ''}>${ic(i, 20)}${l}</button>`).join('')}</nav>`;
+            const m = $('#mn'); if (V == 'chat') m.scrollTop = m.scrollHeight
+        }
+        const addB = (k, l) => `<button class="btn w" onclick="openF('${k}')">${ic('plus', 18)} ${l}</button>`;
+        const del = (js, l = 'Delete') => `<button class="ib" onclick="${js}" aria-label="${l}">${ic('x', 16)}</button>`;
+        const feat = (v, i, t, s) => `<button class="fc" onclick="nav('${v}')"><span class="ico">${ic(i, 22)}</span><b>${t}</b><small>${s}</small></button>`;
+        const row = (v, i, t, s) => `<button class="rw" onclick="nav('${v}')"><span class="ico s">${ic(i, 18)}</span><span class="g"><b>${t}</b><small>${s}</small></span>${ic('chevron-right', 18)}</button>`;
+        const R = {
+            home() {
+                const p = them(), b = dl(p), nx = upcoming().find(e => e.b != p), gd = S.goals.filter(g => g.d).length;
+                return `<section class="hero">${couple('hold', 230)}<h2 class="wl">Welcome, ${esc(S.user)} ❤️</h2></section>
+<article class="bd"><span class="ico">${ic('cake', 24)}</span><div class="g"><p class="eyebrow">Upcoming birthday</p><h2>${p}’s Birthday</h2><p class="sub">Turns ${b.age}</p></div><div class="cnt">${b.days ? `<b>${b.days}</b><span>${b.days == 1 ? 'day' : 'days'} to go</span>` : '<b class="t">Today</b>'}</div></article>
+<article class="nx"><span class="ico s">${ic('calendar-days', 18)}</span><div class="g"><b>${nx ? esc(nx.t) : 'Nothing planned yet'}</b><small>${nx ? fmt(nx.d) : 'Add plans in the Calendar'}</small></div></article>
+<p class="sec">Our journal</p><div class="fgrid">${feat('letters', 'mail', 'Letters', S.letters.length + ' written')}${feat('photos', 'images', 'Photos', S.photos.length + ' memories')}${feat('notes', 'book-open', 'Notes', S.notes.length + ' notes')}${feat('dreams', 'target', 'Dreams & Goals', gd + ' of ' + S.goals.length + ' achieved')}</div>`
+            },
+            more() { return row('timetable', 'clock', 'Timetable', 'Planned dates and outings') + row('loc', 'map-pin', 'Location', 'Share where you are') + row('settings', 'sliders', 'Settings', 'Appearance and account') + `<button class="gh w" style="margin-top:8px" onclick="logout()">${ic('log-out', 18)} Log out</button>` },
+            chat() { return `<div class="msgs" id="ml">${chatHTML()}</div><div class="row" style="position:sticky;bottom:0;padding-top:10px"><input id="ci" placeholder="Write a message…" style="margin:0" onkeydown="if(event.key=='Enter')send()"><button class="btn" style="padding:13px 15px" onclick="send()" aria-label="Send">${ic('send', 18)}</button></div>` },
+            letters() { return `<div class="row" style="margin-bottom:14px"><button class="btn g" onclick="W=-1;nav('write')">${ic('pencil', 17)} Write a letter</button><button class="gh" onclick="nav('drafts')">Drafts (${S.drafts.length})</button></div>` + (S.letters.length ? S.letters.slice().reverse().map(l => `<div class="env" onclick="this.classList.toggle('open')"><div class="ef"><span class="seal">${ic('heart', 18)}</span><div><b class="hand">${esc(l.f)} → ${esc(l.to)}</b><br><small>${fmt(l.d)} · tap to open</small></div></div><div class="paper">${esc(l.t)}</div></div>`).join('') : emp('No letters yet. Write the first one.')) },
+            write() { return `<textarea id="lt" rows="10" placeholder="Pour your heart out…">${W >= 0 ? esc(S.drafts[W]) : ''}</textarea><button class="btn w" onclick="sendL()">${ic('send', 17)} Send to ${them()}</button><button class="gh w" onclick="draft()">Save as draft</button>` },
+            drafts() { return S.drafts.length ? S.drafts.map((d, i) => `<div class="card row"><span class="g">${esc(d.slice(0, 80))}</span><button class="ib" onclick="W=${i};nav('write')" aria-label="Edit draft">${ic('pencil', 16)}</button>${del(`S.drafts.splice(${i},1);save();go()`, 'Delete draft')}</div>`).join('') : emp('No drafts.') },
+            photos() { return `<label class="btn w" style="cursor:pointer">${ic('camera', 18)} Add a photo<input type="file" accept="image/*" hidden onchange="addP(this)"></label>` + (S.photos.length ? `<div class="photos">${S.photos.map((p, i) => `<div class="ph" onclick="if(confirm('Delete this photo?')){S.photos.splice(${i},1);save();go()}"><div style="background-image:url(${p.u})"></div></div>`).join('')}</div><p class="mute" style="margin-top:14px">Photos stay on this device. Tap one to delete it.</p>` : emp('No photos yet. Add your first memory.')) },
+            cal() {
+                const y = cm.getFullYear(), m = cm.getMonth(), f = new Date(y, m, 1).getDay(), n = new Date(y, m + 1, 0).getDate(), td = today(), ev = [...S.events, ...bev(y)]; let c = ''; for (let i = 0; i < f; i++)c += '<span></span>';
+                for (let d = 1; d <= n; d++) { const k = iso(y, m, d); c += `<button class="${k == td ? 't' : ''} ${ev.some(e => e.d == k) || S.outs.some(o => o.d == k) ? 'd' : ''}" aria-label="${k}">${d}</button>` }
+                return addB('ev', 'Add to calendar') + `<div class="card"><div class="row"><button class="ib" onclick="cm=new Date(${y},${m - 1},1);go()" aria-label="Previous month">${ic('chevron-left')}</button><b class="g ser" style="text-align:center;font-size:20px;font-weight:500">${cm.toLocaleString('en', { month: 'long' })} ${y}</b><button class="ib" onclick="cm=new Date(${y},${m + 1},1);go()" aria-label="Next month">${ic('chevron-right')}</button></div><div class="cal" style="margin-top:12px">${'SMTWTFS'.split('').map(x => `<b>${x}</b>`).join('')}${c}</div></div><p class="sec">Next up</p>` + upcoming().slice(0, 8).map(e => `<div class="card row"><div class="g"><b>${esc(e.t)}</b><br><small>${fmt(e.d)}</small></div>${e.i != null ? del(`S.events.splice(${e.i},1);save();go()`) : ''}</div>`).join('')
+            },
+            saved() { return addB('out', 'Add an outing') + (S.outs.length ? S.outs.map((o, i) => `<div class="card row"><span class="ico s">${ic('heart', 18)}</span><div class="g"><b>${esc(o.t)}</b><br><small>${esc(o.k || 'Outing')}${o.d ? ' · ' + fmt(o.d) : ''}${o.h ? ' ' + o.h : ''}</small></div><button class="chip ${o.tt ? 'on' : ''}" onclick="S.outs[${i}].tt^=1;save();go()">${o.tt ? ic('check', 14) + ' Timetable' : 'Add to timetable'}</button>${o.lat ? `<button class="chip" onclick="ride(S.outs[${i}])">${ic('navigation', 14)} Open map</button>` : ''}${del(`S.outs.splice(${i},1);save();go()`)}</div>`).join('') : emp('No saved outings yet.')) },
+            timetable() { const l = S.outs.filter(o => o.tt).sort((a, b) => (a.d || 'z') > (b.d || 'z') ? 1 : -1); return l.length ? l.map(o => `<div class="card row"><span class="ico s">${ic('clock', 18)}</span><div class="g"><b>${esc(o.t)}</b><br><small>${fmt(o.d)}${o.h ? ' · ' + o.h : ''}</small></div></div>`).join('') : emp('Your timetable is empty. Add outings from Plan AI.') },
+            notes() { return addB('note', 'New note') + (S.notes.length ? S.notes.map((n, i) => `<div class="card row"><div class="g"><b>${esc(n.t)}</b><br><small style="white-space:pre-wrap">${esc(n.b || '')}</small></div>${del(`S.notes.splice(${i},1);save();go()`)}</div>`).join('') : emp('No notes yet.')) },
+            dreams() { const dn = S.goals.filter(g => g.d).length, p = S.goals.length ? Math.round(dn / S.goals.length * 100) : 0; return addB('goal', 'New dream or goal') + `<div class="card"><p class="eyebrow">Progress</p><h2 style="margin:4px 0">${dn} of ${S.goals.length} achieved</h2><div class="bar"><i style="width:${p}%"></i></div></div>` + (S.goals.length ? S.goals.map((g, i) => `<div class="card row"><button class="chk ${g.d ? 'on' : ''}" onclick="S.goals[${i}].d^=1;save();go()" aria-label="Toggle goal">${g.d ? ic('check', 14) : ''}</button><span class="g">${esc(g.t)}</span>${del(`S.goals.splice(${i},1);save();go()`)}</div>`).join('') : emp('No dreams added yet.')) },
+            loc() { const mine = S.loc[S.user]; return `<div class="card row"><span class="g"><b>Share my live location</b><br><small>${mine ? 'Sharing with ' + them() : 'Off. Turn on to let ' + them() + ' see where you are'}</small></span><button class="sw ${mine ? 'on' : ''}" onclick="shareLoc()" aria-label="Share location"></button></div><p id="le" class="mute" role="alert"></p>` + ['Pranaya', 'Shiva'].map(n => { const l = S.loc[n]; return `<div class="card row">${av(n, 44)}<div class="g"><b>${n}</b><br><small>${l ? 'Updated ' + new Date(l.t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Not sharing'}</small></div>${l ? `<button class="gh" style="padding:8px 12px;font-size:12px" onclick="ride({name:'${n}',lat:${l.lat},lng:${l.lng}})">Open map ${ic('ext', 14)}</button>` : ''}</div>` }).join('') + `<p class="sec" style="margin-top:14px">Ride options</p><div class="fgrid" style="grid-template-columns:repeat(3,1fr)">${[['Uber', 'https://m.uber.com'], ['Rapido', 'https://www.rapido.bike'], ['Maps', 'https://maps.google.com']].map(r => `<a class="fc" style="text-decoration:none;min-height:96px;align-items:center;justify-content:center" target="_blank" rel="noopener" href="${r[1]}"><span class="ico s">${ic('car', 18)}</span><b style="font-size:14px">${r[0]}</b></a>`).join('')}</div>` },
+            settings() { return `<div class="card row">${av(S.user, 48)}<div class="g"><b>${esc(S.user)}</b><br><small>Signed in</small></div></div><div class="card row"><span class="g"><b>Ambient glow</b><br><small>On: night glow with floating hearts. Off: calm silk-ivory theme.</small></span><button class="sw ${S.set.anim ? 'on' : ''}" onclick="S.set.anim^=1;save();fx();go()" aria-label="Ambient glow"></button></div>${notifCard(1)}<button class="gh w" onclick="logout()">${ic('log-out', 18)} Log out</button>` },
+            add() { const f = FORMS[F]; return f.f.map(x => `<label class="l" for="f_${x[0]}">${x[1]}</label>` + (x[2] == 'area' ? `<textarea id="f_${x[0]}" rows="6"></textarea>` : `<input id="f_${x[0]}" type="${x[2]}">`)).join('') + `<button class="btn w" onclick="saveF()">Save</button>` }
+        };
+        function openF(k) { F = k; nav('add') }
+        function saveF() { const f = FORMS[F], v = {}; f.f.forEach(x => v[x[0]] = $('#f_' + x[0]).value.trim()); if (f.need.some(k => !v[k])) return alert('Please fill in the required fields.'); f.ok(v); save(); back() }
+        const chatHTML = () => S.chat.length ? S.chat.map((c, i) => {
+            const me = c.f == S.user, mm = me ? 'me' : '', tm = new Date(c.a).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); let b;
+            if (c.x) b = '<i>Message unsent</i>'; else if (c.k == 'img') b = `<img class="mi" data-mid="${c.id}" alt="Photo" onload="mnb()" onclick="event.stopPropagation();zoom(this)">` + (c.t ? `<div>${esc(c.t)}</div>` : ''); else if (c.k == 'aud') b = `<audio controls preload="none" data-mid="${c.id}"></audio>`; else b = esc(c.t);
+            const act = me && !c.x && CS == i ? `<div class="ca">${c.k ? '' : `<button class="chip" onclick="event.stopPropagation();chEdit(${i})">${ic('pencil', 13)} Edit</button>`}<button class="chip" onclick="event.stopPropagation();chDel(${i})">${ic('x', 13)} Unsend</button></div>` : '';
+            return `<div class="mr ${mm}">${av(c.f, 28)}<div class="m ${mm}${c.x ? ' gone' : ''}"${me && !c.x ? ` onclick="if(!event.target.closest('audio')){CS=CS==${i}?-1:${i};chatRefresh(1)}"` : ''}>${b}<small>${c.e ? 'edited · ' : ''}${tm}</small>${act}</div></div>`
+        }).join('') : emp('Say hello to ' + them() + '.');
+        function chatRefresh() { const m = $('#ml'); if (m) { m.innerHTML = chatHTML(); $('#mn').scrollTop = $('#mn').scrollHeight } }
+        function send() { const i = $('#ci'), t = i.value.trim(); if (!t) return; S.chat.push({ f: S.user, t, a: Date.now() }); save(); chatRefresh(); i.value = ''; i.focus() }
+        function sendL() { const t = $('#lt').value.trim(); if (!t) return; if (W >= 0) S.drafts.splice(W, 1); S.letters.push({ f: S.user, to: them(), t, d: today() }); save(); W = -1; back() }
+        function draft() { const t = $('#lt').value.trim(); if (!t) return; W >= 0 ? S.drafts[W] = t : S.drafts.push(t); save(); W = -1; back() }
+        function addP(el) { const f = el.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), s = 500 / Math.max(im.width, im.height, 500); c.width = im.width * s; c.height = im.height * s; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); S.photos.unshift({ u: c.toDataURL('image/jpeg', .7) }); save(); go() }; im.src = r.result }; r.readAsDataURL(f) }
+        function shareLoc() { if (S.loc[S.user]) { delete S.loc[S.user]; save(); return go() } if (!navigator.geolocation) { go(); return void ($('#le').textContent = 'Location is not available on this device.') } navigator.geolocation.getCurrentPosition(p => { S.loc[S.user] = { lat: p.coords.latitude, lng: p.coords.longitude, t: Date.now() }; save(); go() }, () => { $('#le').textContent = 'Could not get your location. Please allow location access.' }) }
+        function fx() { $('#bg').style.animationPlayState = S.set.anim ? 'running' : 'paused' }
+        /* Plan AI: chat-style outing planner */
+        const A = { km: 10, msgs: [], busy: 0, loc: null };
+        const tyIc = t => /restaurant/i.test(t) ? 'utensils' : /cafe|caf/i.test(t) ? 'coffee' : /cinema|theat/i.test(t) ? 'film' : /park|garden/i.test(t) ? 'tree' : /mall|shop/i.test(t) ? 'bag' : 'landmark';
+        const bot = t => `<div class="mr ai"><span class="bot">${ic('sparkles', 16)}</span><div class="m">${t}</div></div>`;
+        const usr = t => `<div class="mr me">${av(S.user, 28)}<div class="m me">${t}</div></div>`;
+        const QUICK = ['Let’s watch a movie tonight', 'Romantic dinner under 1500', 'A cosy cafe nearby', 'A walk in a park', 'Places to visit this weekend'];
+        function plCard(p, mi, pi) {
+            const meta = [p.km + ' km away', p.rating ? '★ ' + p.rating + (p.reviews ? ' (' + p.reviews + ' on Google)' : '') : '', p.budget, p.openNow === true ? 'Open now' : p.openNow === false ? 'Closed now' : ''].filter(Boolean).map(esc).join(' · ');
+            return `<div class="card" style="margin:0 0 0 38px">${p.photo ? `<img data-ph="${esc(p.photo)}" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:10px;background:rgba(38,13,27,.7)">` : ''}<div class="row"><span class="ico s">${ic(tyIc(p.type || ''), 18)}</span><div class="g"><b>${esc(p.name)}</b><br><small>${meta}</small></div></div>${p.why ? `<p class="sub" style="margin:10px 0 0">${esc(p.why)}</p>` : ''}${p.summary ? `<p class="sub" style="margin:8px 0 0"><b>Reviews in short:</b> ${esc(p.summary)}</p>` : ''}${p.src == 'google' ? `<p class="mute" style="margin:8px 0 0;font-size:11px">Ratings and reviews from Google Maps${p.photoBy ? ' · photo: ' + esc(p.photoBy) : ''}${p.url ? ` · <a href="${esc(p.url)}" target="_blank" rel="noopener">View on Google Maps</a>` : ''}</p>` : p.src == 'osm' ? `<p class="mute" style="margin:8px 0 0;font-size:11px">Place data © OpenStreetMap contributors</p>` : ''}<div class="row" style="flex-wrap:wrap;margin-top:10px"><button class="chip" onclick="plMap(${mi},${pi})">${ic('navigation', 14)} Open map</button>${p.sv ? `<span class="mute">Saved</span>` : `<button class="chip" onclick="plSave(${mi},${pi},0)">Save</button><button class="chip" onclick="plSave(${mi},${pi},1)">Add to timetable</button>`}</div></div>`
+        }
+        function plHTML() {
+            let h = bot(`Hi ${esc(S.user)}. I’m Our Little Cupid. Tell me what you two feel like doing, like “let’s watch a movie tonight” or “romantic dinner under 1500”, and I’ll find real places near you.`);
+            if (!A.msgs.length) h += `<div class="chips">${QUICK.map((q, i) => `<button class="chip" onclick="plSend(QUICK[${i}])">${esc(q)}</button>`).join('')}</div>`;
+            A.msgs.forEach((m, mi) => {
+                if (m.r == 'u') h += usr(esc(m.t));
+                else {
+                    h += bot(esc(m.t));
+                    if (m.links && m.links.length) h += `<div class="chips">${m.links.map(l => `<a class="chip" href="${esc(l.url)}" target="_blank" rel="noopener">${ic('ext', 14)} Continue on ${esc(l.label)}</a>`).join('')}</div>` + bot('I can’t show live showtimes or book tickets for you, because BookMyShow and District don’t share them with apps. Pick the movie and time there.');
+                    (m.places || []).forEach((p, pi) => h += plCard(p, mi, pi))
+                }
+            });
+            if (A.busy) h += bot('Looking for the best spots near you…');
+            return h
+        }
+        R.saved = R.saved;
+        R.outings = () => `<button class="gh w" onclick="nav('saved')">${ic('heart', 17)} Saved outings (${S.outs.length})</button><div class="msgs" id="pl">${plHTML()}</div><div class="cmp"><div class="chips" style="margin:0 0 8px">${[2, 5, 10, 25, 50].map(k => `<button class="chip ${A.km == k ? 'on' : ''}" onclick="A.km=${k};plKm()">${k} km</button>`).join('')}</div><div class="row"><input id="pi" placeholder="What shall we do?" style="margin:0;flex:1;min-width:0" onkeydown="if(event.key=='Enter')plSend()"><button class="btn" style="padding:13px 15px" onclick="plSend()" aria-label="Send">${ic('send', 18)}</button></div></div>`;
+        function plKm() { document.querySelectorAll('.cmp .chips .chip').forEach(c => c.classList.toggle('on', c.textContent.trim() == A.km + ' km')) }
+        function plPaint() { const m = $('#pl'); if (!m) return; m.innerHTML = plHTML(); const mn = $('#mn'); mn.scrollTop = mn.scrollHeight; plPhotos() }
+        async function plPhotos() {
+            const tk = fa && fa.auth.currentUser ? await fa.auth.currentUser.getIdToken() : null; if (!tk) return;
+            document.querySelectorAll('img[data-ph]').forEach(async im => {
+                if (im.getAttribute('src')) return;
+                try { const r = await fetch('/api/suggest?photo=' + encodeURIComponent(im.dataset.ph), { headers: { authorization: 'Bearer ' + tk } }); if (r.ok) im.src = URL.createObjectURL(await r.blob()); else im.remove() } catch (e) { im.remove() }
+            })
+        }
+        function plLoc() {
+            if (A.loc && Date.now() - A.loc.t < 300000) return Promise.resolve(A.loc);
+            return new Promise((ok, no) => navigator.geolocation ? navigator.geolocation.getCurrentPosition(q => { A.loc = { lat: q.coords.latitude, lng: q.coords.longitude, t: Date.now() }; ok(A.loc) }, no, { timeout: 15000, maximumAge: 60000 }) : no())
+        }
+        async function plSend(t) {
+            const i = $('#pi'); t = (t || (i && i.value) || '').trim(); if (!t || A.busy) return; if (i) i.value = '';
+            const hist = A.msgs.slice(-6).map(m => ({ r: m.r, t: m.t }));
+            A.msgs.push({ r: 'u', t }); A.busy = 1; plPaint();
+            let out;
+            try {
+                const c = await plLoc();
+                if (!fa || !fa.auth.currentUser) throw 'offline';
+                const r = await fetch('/api/suggest', { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + await fa.auth.currentUser.getIdToken() }, body: JSON.stringify({ lat: c.lat, lng: c.lng, message: t, radiusKm: A.km, history: hist }) });
+                if (!r.ok) throw 'api' + r.status;
+                const j = await r.json(); out = { r: 'a', t: j.reply || 'Here you go.', places: j.places || [], links: j.links || [] }
+            } catch (e) {
+                out = { r: 'a', t: e == 'offline' ? 'Please sign in again, then try once more.' : (e && e.code == 1) ? 'Location is blocked. Allow location for this site in your browser or phone settings, then try again.' : (e && e.code) ? 'Could not get your location. Turn on GPS or Wi-Fi and try again.' : /^api401/.test(String(e)) ? 'Please sign out and sign in again, then try once more.' : /^api404/.test(String(e)) ? 'The place search is not set up on this site yet (404). It needs api/suggest.js in the project.' : /^api/.test(String(e)) ? 'Place search is busy right now (' + String(e).slice(3) + '). Try again in a moment.' : 'Could not reach the place search. Check your internet and try again.' }
+            }
+            A.busy = 0; A.msgs.push(out); if (V == 'outings') plPaint()
+        }
+        function plMap(mi, pi) { ride(A.msgs[mi].places[pi]) }
+        function plSave(mi, pi, tt) { const p = A.msgs[mi].places[pi]; S.outs.push({ t: p.name, k: p.type, tt, d: '', h: '', lat: p.lat, lng: p.lng }); p.sv = 1; save(); plPaint() }
+
+        /* Couple character system: one design, many poses and expressions */
+        const HP = 'M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z';
+        const heart = (x, y, k, f) => `<path transform="translate(${x - 12 * k} ${y - 12 * k}) scale(${k})" d="${HP}" fill="${f || '#E75D88'}"/>`;
+        function face(cx, boy, e, cy) {
+            cy = cy || 118; const ey = e == 'sleepy' ? `<path d="M${cx - 15} ${cy} q4 4 8 0M${cx + 7} ${cy} q4 4 8 0" stroke="#2A0A1C" stroke-width="2.4" fill="none" stroke-linecap="round"/>` : [-11, 11].map(d => `<circle cx="${cx + d}" cy="${cy}" r="${e == 'surprised' ? 5.2 : 3.8}" fill="#2A0A1C"/><circle cx="${cx + d + 1.3}" cy="${cy - 1.4}" r="1.3" fill="#fff"/>`).join('');
+            const mo = e == 'surprised' ? `<ellipse cx="${cx}" cy="${cy + 15}" rx="3.5" ry="4.5" fill="#8D1236"/>` : e == 'sleepy' ? `<path d="M${cx - 4} ${cy + 14} h8" stroke="#8D1236" stroke-width="2.4" stroke-linecap="round"/>` : `<path d="M${cx - 8} ${cy + 11} q8 ${e == 'blush' ? 9 : 11} 16 0" stroke="#8D1236" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+            const hairB = boy ? '' : `<rect x="${cx - 35}" y="${cy - 26}" width="70" height="72" rx="30" fill="#2A0A1C"/>`;
+            const hairF = boy ? `<path d="M${cx - 32} ${cy - 6} q-3-44 32-44 q35 0 32 44 q-9-20-32-20 q-23 0-32 20z" fill="#2A0A1C"/>` : `<path d="M${cx - 33} ${cy + 4} q-6-52 33-52 q39 0 33 52 q-8-26-33-28 q-25 2-33 28z" fill="#2A0A1C"/>${heart(cx + 20, cy - 30, .9, '#F5B7CA')}`;
+            return hairB + `<circle cx="${cx}" cy="${cy}" r="30" fill="url(#sk)"/>` + hairF + ey + mo + `<circle cx="${cx - 19}" cy="${cy + 9}" r="${e == 'blush' ? 7 : 5}" fill="#E75D88" opacity="${e == 'blush' ? .7 : .4}"/><circle cx="${cx + 19}" cy="${cy + 9}" r="${e == 'blush' ? 7 : 5}" fill="#E75D88" opacity="${e == 'blush' ? .7 : .4}"/>`
+        }
+        const body = (cx, boy, y) => `<path d="M${cx - 32} ${y} q0-58 32-58 q32 0 32 58z" fill="url(#${boy ? 'sb' : 'sg'})"/>` + (boy ? `<path d="M${cx - 9} ${y - 58} l9 14 l9-14z" fill="#D9AE83"/>` : `<path d="M${cx - 12} ${y - 56} q12 14 24 0" stroke="#FFF7F4" stroke-width="3" fill="none"/>`);
+        const DEFS = '<defs><radialGradient id="sk" cx=".4" cy=".35"><stop offset="0" stop-color="#FFE3CF"/><stop offset="1" stop-color="#EDB08C"/></radialGradient><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E75D88"/><stop offset="1" stop-color="#C62855"/></linearGradient><linearGradient id="sb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F9DCE6"/><stop offset="1" stop-color="#D9AE83"/></linearGradient></defs>';
+        function couple(pose, z, eg, eb) {
+            eg = eg || 'blush'; eb = eb || 'happy'; const P = { hold: [84, 156, 0], hug: [102, 138, 5], sit: [90, 150, 0], heart: [84, 156, 0] }[pose] || [84, 156, 0], [a, b, t] = P, Y = 212, arm = (x1, x2) => `<path d="M${x1} 178 Q${(x1 + x2) / 2} 200 ${x2} 190" stroke="#EDB08C" stroke-width="9" fill="none" stroke-linecap="round"/>`;
+            let ex = ''; if (pose == 'hold') ex = arm(a + 26, 120) + arm(b - 26, 120) + heart(120, 62, 2.2); else if (pose == 'hug') ex = `<path d="M${a + 28} 176 Q120 206 ${b + 4} 178" stroke="#EDB08C" stroke-width="9" fill="none" stroke-linecap="round"/>` + heart(120, 50, 1.6); else if (pose == 'heart') ex = heart(120, 150, 4.2, '#C62855') + heart(120, 150, 2.6, '#E75D88'); else ex = heart(120, 56, 1.4);
+            return `<svg class="cp" viewBox="0 0 240 220" width="${z}" height="${z * 220 / 240}" role="img" aria-label="Pranaya and Shiva together">${DEFS}<g transform="rotate(${t} ${a} 150)">${body(a, 0, Y)}${face(a, 0, eg)}</g><g transform="rotate(${-t} ${b} 150)">${body(b, 1, Y)}${face(b, 1, eb)}</g>${ex}</svg>`
+        }
+        function av(n, z) { const g = n == 'Pranaya'; return `<em class="avs" style="width:${z}px;height:${z}px"><svg viewBox="12 62 76 100" width="${z}" height="${z}" role="img" aria-label="${n}">${DEFS}<rect x="0" y="0" width="100" height="200" fill="${g ? '#F5B7CA' : '#EAD4BE'}"/>${face(50, !g, 'happy')}</svg></em>` }
+        function fx() { $('#bg').style.animationPlayState = S.set.anim ? 'running' : 'paused'; $('#fh').style.display = S.set.anim ? '' : 'none'; document.body.classList.toggle('calm', !S.set.anim); const tc = document.querySelector('meta[name=theme-color]'); if (tc) tc.content = S.set.anim ? '#3B1027' : '#FFF7F4' }
+
+        /* Live heart emojis everywhere */
+        const HE = ['❤️', '💗', '💖', '💕', '💞', '💘', '💝', '🩷'], RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        (() => { const f = document.createElement('div'); f.id = 'fh'; f.setAttribute('aria-hidden', 'true'); for (let i = 0; i < 30; i++) { const e = document.createElement('i'); e.style.cssText = `left:${Math.random() * 100}%;font-size:${14 + Math.random() * 24}px;animation-duration:${8 + Math.random() * 12}s;animation-delay:${-Math.random() * 16}s`; e.innerHTML = '<b style="animation-duration:' + (2 + Math.random() * 3) + 's">' + HE[i % HE.length] + '</b>'; f.appendChild(e) } document.body.insertBefore(f, $('#app')) })();
+        addEventListener('pointerdown', ev => { if (RM || !S.set.anim) return; for (let i = 0; i < 7; i++) { const h = document.createElement('span'); h.textContent = HE[Math.random() * 8 | 0]; h.style.cssText = `position:fixed;left:${ev.clientX}px;top:${ev.clientY}px;font-size:${16 + Math.random() * 14}px;pointer-events:none;z-index:60`; document.body.appendChild(h); const a = Math.random() * 6.28, d = 40 + Math.random() * 60; h.animate([{ transform: 'translate(-50%,-50%) scale(.4)', opacity: 1 }, { transform: `translate(${Math.cos(a) * d - 12}px,${Math.sin(a) * d - 70}px) scale(1.1)`, opacity: 0 }], { duration: 900, easing: 'ease-out' }).onfinish = () => h.remove() } });
+        /* Notifications + install */
+        const toast = t => { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 4500) };
+        let dip = null;
+        addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; if (V == 'home' || V == 'settings') go() });
+        if ('serviceWorker' in navigator) navigator.serviceWorker.register('/firebase-messaging-sw.js?cfg=' + encodeURIComponent(JSON.stringify(FB))).catch(() => { });
+        async function notifOn(q) {
+            const say = t => q || toast(t); try {
+                if (!('Notification' in window) || !('serviceWorker' in navigator)) return say('This browser does not support notifications');
+                if (!VAPID || !await fbInit()) return say('Notifications need Firebase and the VAPID key set up first');
+                if (Notification.permission != 'granted') { const p = await Notification.requestPermission(); if (p != 'granted') { go(); return say('Notifications are blocked. Allow them in your browser or phone settings.') } }
+                await new Promise(r => { let n = 0; const t = setInterval(() => { if (fa.auth.currentUser || ++n > 40) { clearInterval(t); r() } }, 200) });
+                const reg = await navigator.serviceWorker.ready, b = 'https://www.gstatic.com/firebasejs/10.12.2/', A = await import(b + 'firebase-app.js'), M = await import(b + 'firebase-messaging.js'), m = M.getMessaging(A.getApp());
+                const token = await M.getToken(m, { vapidKey: VAPID, serviceWorkerRegistration: reg });
+                await fs.setDoc(fs.doc(fs.db, 'tokens', S.user), { token, name: S.user, t: Date.now() });
+                M.onMessage(m, pl => { const n = pl.notification || {}; toast((n.title || '') + (n.body ? ': ' + n.body : '')) });
+                go(); say('Notifications are on')
+            } catch (e) { say('Could not turn on notifications') }
+        }
+        async function inst() { dip.prompt(); await dip.userChoice; dip = null; go() }
+        function notifCard(f) {
+            const sup = 'Notification' in window, on = sup && Notification.permission == 'granted', card = (t, s, b) => `<div class="card row"><span class="ico s">${ic('heart', 18)}</span><span class="g"><b>${t}</b><br><small>${s}</small></span>${b}</div>`; let h = '';
+            if (sup && !on) h += card('Get notified', 'Messages, letters, outings and reminders', `<button class="btn" onclick="notifOn()">Turn on</button>`); else if (f && on) h += card('Notifications are on', 'You will hear about messages, letters and reminders', '');
+            const app = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+            if (!app) { if (dip) h += card('Add to home screen', 'Open like an app and get pop-up reminders', `<button class="btn" onclick="inst()">Add</button>`); else if (f && /iphone|ipad/i.test(navigator.userAgent)) h += card('Add to home screen', 'Tap Share, then Add to Home Screen. iPhone only sends notifications from the home-screen app.', '') }
+            return h
+        }
+        const _en = enter; enter = function () { _en(); if ('Notification' in window && Notification.permission == 'granted') setTimeout(() => notifOn(1), 1500) };
+        if ('Notification' in window && Notification.permission == 'granted' && S.user && FB.apiKey) setTimeout(() => notifOn(1), 2500);
+
+        /* Chat: edit, unsend, photos, voice */
+        IC.mic = '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>';
+        let CS = -1, CE = -1, REC = null; const MD = {};
+        const mnb = () => { const m = $('#mn'); if (m && V == 'chat') m.scrollTop = m.scrollHeight };
+        async function mput(id, d) { MD[id] = d; if (fs && S.uid) await fs.setDoc(fs.doc(fs.db, 'media', id), { d, by: S.user, t: Date.now() }); else localStorage.setItem('psm_' + id, d) }
+        async function mget(id) { if (MD[id]) return MD[id]; let d = null; try { if (fs && S.uid) { const q = await fs.getDoc(fs.doc(fs.db, 'media', id)); if (q.exists()) d = q.data().d } else d = localStorage.getItem('psm_' + id) } catch (e) { } if (d) MD[id] = d; return d }
+        function loadMedia() { document.querySelectorAll('[data-mid]').forEach(async e => { if (e.getAttribute('src')) return; const d = await mget(e.dataset.mid); if (d) e.src = d; else e.alt = 'Media unavailable' }) }
+        function chatRefresh(k) { const m = $('#ml'); if (m) { m.innerHTML = chatHTML(); loadMedia(); if (!k) mnb() } }
+        const _go = go; go = function () { _go(); if (V == 'chat') loadMedia() };
+        R.chat = () => `<div class="msgs" id="ml">${chatHTML()}</div><div class="cmp"><div id="eb"></div><div id="rc" class="row" style="display:none"></div><div id="cr" class="row"><label class="ib" aria-label="Take a photo">${ic('camera', 18)}<input type="file" accept="image/*" capture="environment" hidden onchange="chPhoto(this)"></label><label class="ib" aria-label="Send a photo">${ic('images', 18)}<input type="file" accept="image/*" hidden onchange="chPhoto(this)"></label><input id="ci" placeholder="Write a message…" style="margin:0;flex:1;min-width:0" onkeydown="if(event.key=='Enter')send()"><button class="ib" onclick="recStart()" aria-label="Record a voice message">${ic('mic', 18)}</button><button class="btn" style="padding:11px 14px" onclick="send()" aria-label="Send">${ic('send', 18)}</button></div></div>`;
+        function compBar() { const b = $('#eb'); if (b) b.innerHTML = CE >= 0 ? `<p class="mute" style="margin-bottom:6px">Editing message · <a onclick="CE=-1;$('#ci').value='';compBar()">Cancel</a></p>` : '' }
+        function send() { const i = $('#ci'), t = i.value.trim(); if (!t) return; if (CE >= 0) { const c = S.chat[CE]; if (c && c.f == S.user && !c.x) { c.t = t; c.e = 1 } CE = -1; compBar() } else S.chat.push({ f: S.user, t, a: Date.now() }); save(); chatRefresh(); i.value = ''; i.focus() }
+        function chEdit(i) { CE = i; CS = -1; chatRefresh(1); const x = $('#ci'); x.value = S.chat[i].t; x.focus(); compBar() }
+        function chDel(i) { if (!confirm('Unsend this message? It will disappear for both of you.')) return; const c = S.chat[i]; if (c.id) { delete MD[c.id]; try { localStorage.removeItem('psm_' + c.id) } catch (e) { } if (fs && S.uid) fs.deleteDoc(fs.doc(fs.db, 'media', c.id)).catch(() => { }) } S.chat[i] = { f: c.f, a: c.a, x: 1, t: '' }; CS = -1; if (CE == i) { CE = -1; compBar() } save(); chatRefresh(1) }
+        async function sendMedia(k, d, t) { const id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); try { await mput(id, d) } catch (e) { return toast('Could not send. Please try again.') } S.chat.push({ f: S.user, k, id, t: t || '', a: Date.now() }); save(); chatRefresh() }
+        function chPhoto(el) { const f = el.files[0]; el.value = ''; if (!f) return; const cap = CE < 0 ? $('#ci').value.trim() : ''; const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), k = 900 / Math.max(im.width, im.height, 900); c.width = im.width * k; c.height = im.height * k; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); if (cap) $('#ci').value = ''; sendMedia('img', c.toDataURL('image/jpeg', .65), cap) }; im.src = r.result }; r.readAsDataURL(f) }
+        function zoom(im) { const d = document.createElement('div'); d.style.cssText = 'position:fixed;inset:0;z-index:70;background:rgba(20,5,12,.92);display:grid;place-items:center;padding:16px'; d.innerHTML = `<img src="${im.src}" alt="Photo" style="max-width:100%;max-height:100%;border-radius:12px">`; d.onclick = () => d.remove(); document.body.appendChild(d) }
+        function recUI() { const b = $('#rc'), c = $('#cr'); if (!b || !c) return; if (REC) { const s = Math.floor((Date.now() - REC.t0) / 1000); b.innerHTML = `<span class="rd"></span><b>${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}</b><span class="g mute">Recording…</span><button class="ib" onclick="recCancel()" aria-label="Cancel recording">${ic('x', 16)}</button><button class="btn" style="padding:11px 14px" onclick="recStop()" aria-label="Send voice message">${ic('send', 17)}</button>`; b.style.display = 'flex'; c.style.display = 'none' } else { b.style.display = 'none'; c.style.display = 'flex' } }
+        async function recStart() { if (REC) return; try { if (!navigator.mediaDevices || !window.MediaRecorder) return toast('Voice messages are not supported on this browser'); const st = await navigator.mediaDevices.getUserMedia({ audio: true }), mt = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm'].find(m => MediaRecorder.isTypeSupported(m)), mr = new MediaRecorder(st, Object.assign({ audioBitsPerSecond: 24000 }, mt ? { mimeType: mt } : {})), ch = []; REC = { mr, t0: Date.now(), cancel: 0 }; const me = REC; mr.ondataavailable = e => e.data.size && ch.push(e.data); mr.onstop = () => { st.getTracks().forEach(t => t.stop()); clearInterval(me.iv); REC = null; recUI(); if (me.cancel || !ch.length) return; const rd = new FileReader(); rd.onload = () => sendMedia('aud', rd.result); rd.readAsDataURL(new Blob(ch, { type: mr.mimeType })) }; mr.start(); me.iv = setInterval(() => { (Date.now() - me.t0) / 1000 >= 90 ? recStop() : recUI() }, 500); recUI() } catch (e) { toast('Microphone is blocked. Allow it in your browser settings.') } }
+        const recStop = () => { if (REC && REC.mr.state != 'inactive') REC.mr.stop() }, recCancel = () => { if (REC) { REC.cancel = 1; recStop() } };
+        fx();
+
+        IC.car = '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>';
+        IC.eye = '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>';
+        IC['eye-off'] = '<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>';
+        function pwShow(on) { const i = $('#p'), b = $('#pe'); on = on === undefined ? i.type == 'password' : !!on; i.type = on ? 'text' : 'password'; b.innerHTML = ic(on ? 'eye-off' : 'eye', 20); b.setAttribute('aria-label', on ? 'Hide password' : 'Show password'); b.setAttribute('aria-pressed', on) }
+        { const _pk = pick; pick = function (n) { _pk(n); pwShow(0) } }
+        IC.navigation = '<polygon points="3 11 22 2 13 21 11 13 3 11"/>';
+        function ride(p) {
+            const n = p.name || p.t || 'Destination', la = p.lat, ln = p.lng,
+                uber = `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${la}&dropoff[longitude]=${ln}&dropoff[nickname]=${encodeURIComponent(n)}`,
+                maps = `https://www.google.com/maps/dir/?api=1&destination=${la},${ln}&travelmode=driving`, d = document.createElement('div'); d.className = 'sheet'; d.onclick = e => { if (e.target == d) d.remove() };
+            d.innerHTML = `<div class="sh"><p class="eyebrow">Open map to</p><h2 class="ser" style="margin:4px 0 14px;font-size:22px">${esc(n)}</h2><a class="rw" href="${uber}" target="_blank" rel="noopener" onclick="setTimeout(()=>this.closest('.sheet').remove(),400)"><span class="ico s">${ic('car', 18)}</span><span class="g"><b>Uber</b><br><small>Opens with pickup at your current location</small></span>${ic('ext', 16)}</a><button class="rw" id="rp"><span class="ico s">${ic('car', 18)}</span><span class="g"><b>Rapido</b><br><small>Rapido can’t take a destination link. I copy the place, you paste it</small></span>${ic('ext', 16)}</button><a class="rw" href="${maps}" target="_blank" rel="noopener" onclick="setTimeout(()=>this.closest('.sheet').remove(),400)"><span class="ico s">${ic('navigation', 18)}</span><span class="g"><b>Google Maps</b><br><small>Directions from your current location</small></span>${ic('ext', 16)}</a><p class="mute" style="margin-top:6px">Your phone may ask to share your location with the app you open.</p></div>`;
+            d.querySelector('#rp').onclick = () => { try { navigator.clipboard.writeText(n + ' (' + la + ',' + ln + ')') } catch (e) { } toast('Place copied. Open Rapido and paste it as your destination.'); window.open('https://www.rapido.bike/', '_blank', 'noopener'); d.remove() };
+            document.body.appendChild(d)
+        }
+        function aiSave(i, tt) { const p = A.res[i]; S.outs.push({ t: p.name, k: p.type, tt, d: '', h: '', lat: p.lat, lng: p.lng }); p.sv = 1; save(); go() }
+        fx();
+        pwShow(0);
+        $('#lk').innerHTML = ic('lock', 14) + ' Private. Only for Pranaya & Shiva.';
+        if (FB.apiKey) fbInit().catch(() => { });
+        document.addEventListener('visibilitychange', async () => { if (document.visibilityState != 'visible' || !S.user || !S.uid || !fs) return; try { const d = await fs.getDocFromServer(fs.doc(fs.db, 'sessions', S.uid)); if (d.exists() && d.data().sid !== sid) logout('You were signed out because this account logged in on another device.') } catch (e) { } });
+        if (FB.apiKey) fbInit().catch(() => { }); pick('Pranaya'); fx(); if (S.user) { me = S.user; pick(me); $('#login').style.display = 'none'; go(); if (FB.apiKey) fbInit().then(() => fa.onAuthStateChanged(fa.auth, async u => { if (!u) { if (S.user) logout(); return } if (LB) return; S.uid = u.uid; sid = localStorage.getItem('ps_sid_' + u.uid) || ''; if (u1) u1(); if (u2) u2(); watch(); await sync() })) }
+    </script>
+</body>
+
+</html>

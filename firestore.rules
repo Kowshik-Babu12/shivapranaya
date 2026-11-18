@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ok() {
+      return request.auth != null &&
+        request.auth.token.email in ['pranaya.samala15@gmail.com', 'spranaya04@gmail.com'];
+    }
+    match /couple/{d}   { allow read, write: if ok(); }
+    match /tokens/{d}   { allow read, write: if ok(); }
+    match /media/{d}    { allow read, write: if ok(); }
+    // each person can only touch their OWN session record
+    match /sessions/{uid} { allow read, write: if ok() && request.auth.uid == uid; }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
