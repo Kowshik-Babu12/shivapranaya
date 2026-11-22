@@ -1,0 +1,21 @@
+{
+  "headers": [
+    {
+      "source": "/firebase-messaging-sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/suggest.js": {
+      "maxDuration": 60
+    },
+    "api/plan-ai.js": {
+      "maxDuration": 60
+    }
+  }
+}
